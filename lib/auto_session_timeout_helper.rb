@@ -12,7 +12,13 @@ if (typeof(Ajax) != 'undefined') {
       url: '/active',
       success: function(data) {
         if(data == 'false'){
-          window.location.href = '/timeout';
+          $.ajax({
+              url: '/timeout',
+              type: 'DELETE',
+              success: function(result) {
+                  // Do something with the result
+              }
+          });
         }
       }
     });
@@ -22,7 +28,13 @@ if (typeof(Ajax) != 'undefined') {
 } else {
   $.PeriodicalUpdater('/active', {minTimeout:#{frequency * 1000}, multiplier:0, method:'get', verbose:2}, function(remoteData, success) {
     if (success == 'success' && remoteData == 'false')
-      window.location.href = '/timeout';
+        $.ajax({
+            url: '/timeout',
+            type: 'DELETE',
+            success: function(result) {
+                // Do something with the result
+            }
+        });
   });
 }
 JS
